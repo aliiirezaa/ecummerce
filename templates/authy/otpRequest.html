@@ -1,0 +1,31 @@
+{% extends '../shared/index.html' %}
+
+{% block title %}
+    احراز هویت
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <section id="form"><!--form-->
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-1">
+                <div class="login-form"><!--login form-->
+                    <h2> احراز هویت </h2>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{form.code}}
+                        {% if form.code.errors %}
+                            {% for err in form.code.errors %}
+                                <p class="text-danger" >err</p>
+                            {% endfor %}
+                        {% endif %}
+                    
+                        <button type="submit" class="btn btn-default">ورود</button>
+                    </form>
+                </div><!--/login form-->
+            </div>
+        
+        </div>
+    </section>
+</div>
+{% endblock %}

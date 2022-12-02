@@ -1,0 +1,41 @@
+{% extends '../shared/index.html' %}
+{% load static %}
+{% load humanizelib  %}
+{% block title %}
+    محصولات
+{% endblock %}
+
+{% block content %}
+<section>
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-sm-9 padding-right">
+                <div class="features_items"><!--features_items-->
+                    {% block main %}
+                    {% endblock %}
+                </div><!--features_items-->
+                <ul class="pagination d-block">
+                    {% if objects.has_previous %}
+                    <li><a href={% block has_previous %}{% endblock %}>prev</a></li>
+                    {% endif %}
+                    {% for page in objects.paginator.page_range %}
+                        {%  if objects.number == page %}
+                            <li class="active"><a>{{page}}</a></li>
+                        {% else %}
+                            <li><a href={% block current_page %}{% endblock %}>{{page}}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if objects.has_next %}
+                    <li><a href={% block has_next %}{% endblock %}>next</a></li>
+                    {% endif %}
+                   
+                </ul>
+            </div>
+            {% include './sidebar.html' %}
+          
+            
+        </div>
+    </div>
+</section>
+{% endblock %}

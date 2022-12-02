@@ -1,0 +1,13 @@
+<li class="dropdown"><a href="{% url 'products:product_list' %}">محصولات</a></li>
+{% for category in category_list%}
+    {% if category.tag == None %}
+        <li class="dropdown"><a href="{% url 'products:category_list' category.slug %}">{{ category.title }}<i class="fa fa-angle-down"></i></a>
+            {% if category.parent %}
+                {% include './navbar/category_loop.html' %}
+            {% endif %}
+        
+        </li> 
+   
+    {% endif %}
+
+{% endfor %}

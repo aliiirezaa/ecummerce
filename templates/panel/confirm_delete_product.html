@@ -1,0 +1,22 @@
+{% extends './update_create.html' %}
+{% block title %}{% block title_card%}
+  حذف محصول
+{% endblock %} {% endblock %}
+{% block cartColor %}card-danger{% endblock %}
+{% block main %}
+<form method="post">
+  {% csrf_token %}
+
+  <div class ='row' style="direction:rtl">
+    
+    <div class ='col-8 mx-auto'>
+        <p> آیا از حذف  "{{ object.title }}"  از  "{{ object.author.email }}"  مطمئن هستید ؟ </p>
+    </div>
+
+    
+  </div>
+  <div class="card-footer">
+    <button type="submit" class="btn btn-danger">حذف</button>
+  </div>
+</form>
+{% endblock %}

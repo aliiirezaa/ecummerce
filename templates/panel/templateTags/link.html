@@ -1,0 +1,8 @@
+<a href="{% url link %}" class="nav-link  {% if request.resolver_match.url_name == link_name %}active{% endif %}">
+    <i class="nav-icon fas fa-tachometer-alt"></i>
+    <p>
+        
+         {{content}}
+        <i class="right fas fa-angle-left"></i>
+    </p>
+    </a>

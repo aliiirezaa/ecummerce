@@ -1,0 +1,32 @@
+<div id="slider-carousel" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
+        <li data-target="#slider-carousel" data-slide-to="1"></li>
+    </ol>
+    
+    <div class="carousel-inner">
+        
+        {% for item in objects %}
+            <div class="item {{ forloop.first|yesno:'active,' }}">
+                <div class="col-sm-6">
+                    <img src="{{ item.picture.url }}" class="girl img-responsive" alt="" width="500" heigth="400" />
+                   
+                </div>
+                <div class="col-sm-6">
+                    <h2>{{ item.title }}</h2>
+                    
+                    <a href={% url 'products:product_detail' item.slug %} class="btn btn-default get">مشاهده</a>
+                </div>
+
+            </div>
+
+        {% endfor %}
+    </div>
+    
+    <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+        <i class="fa fa-angle-left"></i>
+    </a>
+    <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
+        <i class="fa fa-angle-right"></i>
+    </a>
+</div>

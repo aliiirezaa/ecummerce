@@ -1,0 +1,79 @@
+{% extends './shaird/index.html' %}
+{% load static %}
+{% block title %}
+{% endblock %}
+
+{% block content %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+        <div class="col-sm-6">
+            <h1 class="m-0">{% block header %}{% endblock %}</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{% url 'panel:panel_page' %}">خانه</a></li>
+            <li class="breadcrumb-item active">{% block breadcrumb %}{% endblock %}</li>
+            </ol>
+        </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <div class="row">
+        <div class="col-12">
+                {% block main %}
+                {% endblock %}
+                  <div class="row">
+                    <div class="col-sm-12 col-md-5">
+                        <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">نمایش {{page_obj.number}} از {{page_obj.paginator.num_pages}}</div>
+                    </div>
+                    {% if is_paginated %}
+                        <div class="col-sm-12 col-md-7">
+                            <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                                <ul class="pagination">
+                                    {% if object_list.has_previous %}
+                                        <li class="paginate_button page-item previous" id="example2_previous">
+                                            <a href="{% block page_previous %}{% endblock %}" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">
+                                                Previous
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                    {% for i in paginator.page_range  %}
+                                        {% if object_list.number == i %}
+                                            <li class="paginate_button page-item active">
+                                                <a aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">
+                                                    {{i}}
+                                                </a>
+                                            </li>
+                                        {% else %}
+                                        <li class="paginate_button page-item ">
+                                            <a href="{% block current_page %}{% endblock %}" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">
+                                                {{i}}
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if object_list.has_next %}
+                                        <li class="paginate_button page-item next " id="example2_next">
+                                            <a href="{% block page_next %}{% endblock %}" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">
+                                                next
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+                                   
+                </div>
+                <!-- /.card-body -->
+              </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+

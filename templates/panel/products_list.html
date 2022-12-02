@@ -1,0 +1,91 @@
+{% extends './base_list.html' %}
+
+{% block title %}{% block breadcrumb %}{% block header %}
+    لیست محصولات
+{% endblock %}{% endblock %}{% endblock %}
+{% block main %}
+<div class="card" dir="rtl">
+    <div class="card-header">
+      <h3 class="card-title" style="float:right">لیست محصولات</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+      <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+
+            </div>
+            <div class="col-sm-12 col-md-6">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+        <table id="example2" class="table table-bordered table-hover dataTable dtr-inline" aria-describedby="example2_info">
+        <thead>
+        <tr>
+            
+            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">شماره سریال</th>
+            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">تصویر</th>
+            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">عنوان</th>
+            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">نویسنده</th>
+            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">توضیحات</th>
+            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">دسته بندی</th>
+            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">ایجاد</th>
+            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">وضعیت</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for product in object_list %}
+                <tr class="odd">
+                <td class="dtr-control" tabindex="0">.
+                    {% if user.is_superuser or user.is_author and product.status == 'draft' or product.status == 'pending' %}
+                    <a href="{% url 'panel:products_update' product.slug %}">{{ product.id }}</a>
+                    {% else %}
+                    {{ product.id }}
+                    {% endif %}
+                   
+                
+                </td>
+                <td class="sorting_1">
+                    <img src={{product.picture.url}} width="70" heigth="70" />
+                </td>
+                <td>{{ product.title }}</td>
+                <td>{{ product.author.email }}</td>
+                <td>{{ product.description|truncatewords:30|safe}}</td>
+                <td>
+                    {% for category in product.tags.is_active %}
+                        <span>
+                            {{ category.title }} ,
+                        </span>
+                    {% endfor %}
+                </td>
+                <td>
+                    {{product.jpuplish}}
+                </td>
+                <td>
+                    {% if product.status == 'puplish' %}
+                        <span class="badge badge-primary">منتشر شده</span>
+                    {% elif product.status == 'draft'  %}
+                        <span class="badge badge-secondary">پیش نویس</span>
+                    {% elif product.status == 'pending' %}
+                        <span class="badge badge-warning">در حال بررسی</span>
+                    {% elif product.status == 'delete' %}
+                        <span class="badge badge-danger">حذف</span>
+                    {% endif %}
+                </td>
+                </tr>
+
+            {% empty %}
+                محصولی موجود نیست
+            {% endfor %}
+       
+    </tbody>
+      
+      </table>
+    </div>
+</div >
+{% endblock %}
+{% block page_previous %}{% url 'panel:products_list' %}?page={{object_list.previous_page_number}}{% endblock %}
+{% block current_page %}{% url 'panel:products_list' %}?page={{i}}{% endblock %}
+{% block page_next %}{% url 'panel:products_list'%}?page={{object_list.next_page_number}}{% endblock %}

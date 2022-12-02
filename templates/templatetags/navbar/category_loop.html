@@ -1,0 +1,8 @@
+<ul role="menu" class="sub-menu">
+    {% for nested_category in category.parent.is_active %}
+        
+        <li><a href="{% url 'products:category_list' nested_category.slug %}">{{ nested_category.title }}</a>
+           
+        </li>
+    {% endfor %}
+</ul>

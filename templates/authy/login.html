@@ -1,0 +1,43 @@
+{% extends '../shared/index.html' %}
+
+{% block title %}
+    ورود
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <section id="form"><!--form-->
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-1">
+                <div class="login-form"><!--login form-->
+                    <h2>ورود به حساب کاربـری :</h2>
+                    <form method='post' >
+                        {% csrf_token %}
+                        {{form.email}}
+                            {% if form.email.errors %}
+                                {% for err in form.email.errors %}
+                                    <p class="text-danger" >{{err}}</p>
+                                {% endfor %}
+                            {% endif %}
+                        {{form.password}}
+                            {% if form.password.errors %}
+                                {% for err in form.password.errors %}
+                                    <p class="text-danger" >{{err}}</p>
+                                {% endfor %}
+                            {% endif %}
+                        <span>
+                            <input type="checkbox" class="checkbox"> 
+                            مرا بخاطـر بسپـار
+                        </span>
+                        <span>
+                            <a href="{% url 'authy:reset_psasword' %}">رمـز عبـور خود را فراموش کرده ام</a>
+                        </span>
+                        <button type="submit" class="btn btn-default">ورود</button>
+                    </form>
+                </div><!--/login form-->
+            </div>
+        
+        </div>
+    </section>
+</div>
+{% endblock %}
