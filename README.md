@@ -2,7 +2,7 @@
 <a href="https://uupload.ir/" target="_blank"><img src="https://s2.uupload.ir/files/main_rl3j.png" border="0" alt="آپلود عکس" /></a>
 <hr/> 
 <h1>توضیــحات</h1>
-<p>هدف از این پروژه پیاده سازسی بخش ORM جنگو به همراه بخش  templte tags و mixins و استفاده از کتابخانه django channels</p>
+<p>هدف از این پروژه پیاده سازسی بخش ORM جنگو به همراه بخش  template tags و mixins و استفاده از کتابخانه django channels</p>
 <br/> 
 <h2>ابزارها</h2>
 <ul>
