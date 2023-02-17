@@ -35,9 +35,11 @@ class OtpRequestForm(forms.Form):
     code = forms.CharField( required=True, max_length=4, widget=forms.TextInput(attrs={'placeholder':'کد ارسال شده رو وارد نمایید'}))
 
 class ProfileForm(forms.ModelForm):
+
     class Meta:
         model = User 
-        exclude = ['updated'] 
+        exclude = ['updated']
+       
                
 class SendUserResetPasswordForm(forms.Form):
 

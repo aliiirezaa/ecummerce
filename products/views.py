@@ -11,7 +11,7 @@ User = get_user_model()
 class ProductListView(View):
     def get(self, request, page=1):
         products = Products.objects.puplished()
-        paginator = Paginator(products, 2)
+        paginator = Paginator(products, 3)
         try:
             page_obj = paginator.get_page(page)
         except PageNotAnInteger:

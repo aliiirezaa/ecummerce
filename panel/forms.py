@@ -1,10 +1,11 @@
 from django import forms 
-from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
+# from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 from django.contrib.auth import get_user_model 
 User = get_user_model()
 
 class DataForm(forms.DateInput):
     input_type = 'date'
+    
 class ProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user')
@@ -19,6 +20,16 @@ class ProfileForm(forms.ModelForm):
         model= User
         fields = [ 'email', 'first_name', 'last_name', 'is_active', 'is_superuser', 'is_author', 'special_user', 'avatar'
               ]
+        labels = {
+            "email":'ایمیل',
+            "first_name":'نام',
+            "last_name":'نام خانوادگی',
+            "is_active":'کاربر فعال ',
+            "is_superuser":'ادمین',
+            "is_author":'نویسنده',
+            "special_user":'کاربر وبژه',
+            "avatar":'تصویر',
+        }
         widgets = {
             'special_user':DataForm()
         }

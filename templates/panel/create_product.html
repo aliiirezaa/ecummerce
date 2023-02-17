@@ -8,95 +8,98 @@
   {% endif %}
 {% endblock %} {% endblock %}
 {% block main %}
-<form method="post" enctype='multipart/form-data'>
-  {% csrf_token %}
-  {% comment %} <div class="card-body">
-    <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-    </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-    </div>
-    <div class="form-group">
-      <label for="exampleInputFile">File input</label>
-      <div class="input-group">
-        <div class="custom-file">
-          <input type="file" class="custom-file-input" id="exampleInputFile">
-          <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+<div class="form--group">
+  <form method="post" enctype='multipart/form-data'>
+    {% csrf_token %}
+    {% comment %} <div class="card-body">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputFile">File input</label>
+        <div class="input-group">
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="exampleInputFile">
+            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+          </div>
+          <div class="input-group-append">
+            <span class="input-group-text">Upload</span>
+          </div>
         </div>
-        <div class="input-group-append">
-          <span class="input-group-text">Upload</span>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+      </div>
+    </div> {% endcomment %}
+    <!-- /.card-body -->
+    <div class ='row' style="direction:rtl">
+  
+    <div class ='col-6'>
+        {{ form.id|as_crispy_field }}
+      </div>
+      <div class ='col-6'>
+        {{ form.title|as_crispy_field }}
+      </div>
+      <div class ='col-12'>
+        {{ form.description|as_crispy_field }}
+      </div>
+      {% if user.is_superuser %}
+        <div class ='col-3'>
+          {{ form.author|as_crispy_field }}
         </div>
-      </div>
-    </div>
-    <div class="form-check">
-      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-      <label class="form-check-label" for="exampleCheck1">Check me out</label>
-    </div>
-  </div> {% endcomment %}
-  <!-- /.card-body -->
-  <div class ='row' style="direction:rtl">
-    
-  <div class ='col-6'>
-      {{ form.id|as_crispy_field }}
-    </div>
-    <div class ='col-6'>
-      {{ form.title|as_crispy_field }}
-    </div>
-    <div class ='col-12'>
-      {{ form.description|as_crispy_field }}
-    </div>
-    {% if user.is_superuser %}
+      {% endif %}
+   
       <div class ='col-3'>
-        {{ form.author|as_crispy_field }}
-      </div>
-    {% endif %}
- 
-    <div class ='col-3'>
-      {{ form.price|as_crispy_field }}
-    </div>  
-    <div class ='col-3'>
-      {{ form.slug|as_crispy_field }}
-    </div>
-    <div class ='col-3'>
-      {{ form.picture|as_crispy_field }}
-    </div>
-    <div class ='col-6'>
-      {{ form.tags|as_crispy_field }}
-    </div>
-    {% if user.is_superuser %}
+        {{ form.price|as_crispy_field }}
+      </div>  
       <div class ='col-3'>
-        {{ form.status|as_crispy_field }}
+        {{ form.slug|as_crispy_field }}
       </div>
-    {% else %}
-    <div class="col-3">
-
-      <div id="div_id_status" class="control-group">       
-              <label for="id_status" class="control-label requiredField">
-                  Status<span class="asteriskField">*</span>
-              </label>
-              <div class="controls">
-                  
-                  <select name="status" class="select" id="id_status">
-                    <option value="draft"></option>
-                    <option value="draft">Draft</option>
-                    <option value="pending" selected="">Pending</option>
-                  </select>       
-              </div>   
+      <div class ='col-3'>
+        {{ form.picture|as_crispy_field }}
       </div>
-
+      <div class ='col-6'>
+        {{ form.tags|as_crispy_field }}
+      </div>
+      {% if user.is_superuser %}
+        <div class ='col-3'>
+          {{ form.status|as_crispy_field }}
+        </div>
+      {% else %}
+      <div class="col-3">
+  
+        <div id="div_id_status" class="control-group">       
+                <label for="id_status" class="control-label requiredField">
+                    Status<span class="asteriskField">*</span>
+                </label>
+                <div class="controls">
+                    
+                    <select name="status" class="select" id="id_status">
+                      <option value="draft"></option>
+                      <option value="draft">Draft</option>
+                      <option value="pending" selected="">Pending</option>
+                    </select>       
+                </div>   
+        </div>
+  
+      </div>
+      {% endif %}
+      
     </div>
-    {% endif %}
-    
-  </div>
-  <div class="card-footer">
+    <div class="card-footer">
+  
+        <button type="submit" class="btn btn-success">ثبت</button>
+      {% if request.user.is_superuser and request.resolver_match.url_name == 'products_update' %}
+          <a href="{% url 'panel:products_delete' request.resolver_match.kwargs.slug %} " class="btn btn-danger">حذف</a>
+      {% endif %}
+    </div>
+  </form>
 
-      <button type="submit" class="btn btn-success">ثبت</button>
-    {% if request.user.is_superuser and request.resolver_match.url_name == 'products_update' %}
-        <a href="{% url 'panel:products_delete' request.resolver_match.kwargs.slug %} " class="btn btn-danger">حذف</a>
-    {% endif %}
-  </div>
-</form>
+</div>
 {% endblock %}

@@ -4,57 +4,53 @@
     ویرایش کاربر
 {% endblock %} {% endblock %}
 {% block main %}
-<form method="post"   enctype='multipart/form-data' >
-  {% csrf_token %}
-
-  <div class ='row' style="direction:rtl">
-    <div class ='row'>
-        <div class="col-8">
-            {% if object.avatar %}
-                <img src="{{ object.avatar.url }}" alt="{{object.pk}}">
-            {% endif %}
-             
-        </div>
-
-        <div class="col-4">{{ form.avatar|as_crispy_field }}</div>
-       
-    </div>
-   
-    <div class ='row' >
-        <div class="col-3">
-            <a href="{% url 'authy:change_password' %}" class="btn btn-primary">تغییر گذرواژه</a>
-         </div>
-        <div class="col-9" >
-            {{ form.email|as_crispy_field }}
-        </div>
-       
-        <div class="col-6">
-             {{ form.first_name|as_crispy_field }}
-        </div>
-        <div class="col-6">
-             {{ form.last_name|as_crispy_field }}
-        </div>
-        <div class="col-3">
-            {{ form.special_user|as_crispy_field }}
-       </div>
-        <div class="col-3">
-             {{ form.is_active|as_crispy_field }}
-        </div>
-        <div class="col-3">
-             {{ form.is_superuser|as_crispy_field }}
-        </div>
-        <div class="col-3">
-             {{ form.is_author|as_crispy_field }}
-        </div>
-
-        
-    </div>
+<div class="profile--content">
+    <form method="post"   enctype='multipart/form-data' >
+        {% csrf_token %}
+        <div class ='row'>
+            <div class="col-8">
+                {% if object.avatar %}
+                    <img src="{{ object.avatar.url }}" alt="{{object.pk}}">
+                {% endif %}
+                
+            </div>
     
+            <div class="col-4">{{ form.avatar|as_crispy_field }}</div>
+            
+        </div>
+        <div class ='row' >
+            <div class="col-12">
+                <a href="{% url 'authy:change_password' %}" class="btn btn-primary">تغییر گذرواژه</a>
+            </div>
+            <div class="col-9" >
+                {{ form.email|as_crispy_field }}
+            </div>
+            
+            <div class="col-6">
+                {{ form.first_name|as_crispy_field }}
+            </div>
+            <div class="col-6">
+                {{ form.last_name|as_crispy_field }}
+            </div>
+            <div class="col-3">
+                {{ form.special_user|as_crispy_field }}
+            </div>
+            <div class="col-3">
+                {{ form.is_active|as_crispy_field }}
+            </div>
+            <div class="col-3">
+                {{ form.is_superuser|as_crispy_field }}
+            </div>
+            <div class="col-3">
+                {{ form.is_author|as_crispy_field }}
+            </div>
     
+            
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-success">ثبت</button> 
+        </div>
+
+    </form>
 </div>
-<div class="card-footer">
-    <button type="submit" class="btn btn-success">ثبت</button> 
-    
-  </div>
-</form>
 {% endblock %}

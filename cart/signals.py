@@ -5,7 +5,7 @@ from .models import Orders, Cart
 @receiver(post_save, sender=Orders)
 def order_handler(sender, instance,created, **kwargs):
     try:
-        query = Cart.objects.filter(user=instance.user)
+        query = Cart.objects.filter(user=instance.user, purchase=False)
         if query.exists():
             cart = query.first()
             cart.orders.add(instance)

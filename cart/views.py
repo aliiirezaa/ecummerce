@@ -23,8 +23,11 @@ class OrdersView(View):
                 carts =Cart.objects.filter(user=user, purchase=False)
                 if carts.exists():
                     cart = carts.first()
+                    print('true************')
                     return render(request, 'order/cart.html', {'cart':cart})
-                return redirect('authy:home')
+                else:
+                    print('else************')
+                    return redirect('authy:home')
             except Orders.DoesNotExist:
                 return redirect('authy:home')
 

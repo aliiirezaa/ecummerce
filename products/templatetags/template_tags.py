@@ -94,7 +94,7 @@ def most_hist_for_products():
 @register.inclusion_tag('templatetags/categeory_products.html')
 def most_comments_for_products():
   try:
-    last_week = datetime.today() - timedelta(days=30)
+    last_week = datetime.today() - timedelta(days=120)
     products = Products.objects.puplished().annotate(count=Count('comments', filter=Q(comments__created__gt=last_week))).order_by('-count')[:4]
     return{
       'title': 'پر بحث ترین ماه',
